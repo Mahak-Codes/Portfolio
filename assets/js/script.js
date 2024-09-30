@@ -38,19 +38,20 @@ $(document).ready(function () {
     });
 
     // <!-- emailjs to mail contact form data -->
-    $("#contact-form").submit(function (event) {
-        emailjs.init("user_TTDmetQLYgWCLzHTDgqxm");
 
-        emailjs.sendForm('contact_service', 'template_contact', '#contact-form')
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById("contact-form").reset();
+    $("#contact-form").submit(function (event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+
+        // Replace with your deployed Google Apps Script URL
+        $.post('https://script.google.com/macros/s/AKfycbzTXjBLlziXe-kbsoMe_Qm_18Mn9ELGD5B0_yW6L5rVi5YwZY4jQmIp62CLyacNh0zw7Q/exec', formData)
+            .done(function (data) {
                 alert("Form Submitted Successfully");
-            }, function (error) {
-                console.log('FAILED...', error);
+                document.getElementById("contact-form").reset();
+            })
+            .fail(function (error) {
                 alert("Form Submission Failed! Try Again");
             });
-        event.preventDefault();
     });
     // <!-- emailjs to mail contact form data -->
 
@@ -179,18 +180,6 @@ document.onkeydown = function (e) {
     }
 }
 
-// Start of Tawk.to Live Chat
-var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-(function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/66fae47ae5982d6c7bb6bbf2/1i920p0la';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-})();
-
-// End of Tawk.to Live Chat
 
 
 /* ===== SCROLL REVEAL ANIMATION ===== */
